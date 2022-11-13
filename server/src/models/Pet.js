@@ -23,9 +23,15 @@ const Pet = dataBase.define("pets", {
         type: Sequelize.DataTypes.STRING(255),
 
     },
-    id_owner: {
-        type: Sequelize.DataTypes.INTEGER,
+    name_owner: {
+        type: Sequelize.DataTypes.STRING(255),
 
+    },
+    adress:{
+        type: Sequelize.DataTypes.STRING(255),
+    },
+    telephone:{
+        type: Sequelize.DataTypes.STRING(25),
     },
     created_at: {
         type: Sequelize.DataTypes.DATE,
