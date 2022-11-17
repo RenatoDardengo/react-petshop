@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "../../components/head";
 import { useParams } from "react-router-dom";
 import "./styles.css";
@@ -7,7 +7,7 @@ import InputText from "../../components/InputText";
 import petService from "../../services/petSevices";
 
 const PetEdit = () => {
-    
+
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [type, setType] = useState("");
@@ -15,45 +15,40 @@ const PetEdit = () => {
     const [nameOwner, setNameOwner] = useState("");
     const [telephone, setTelephone] = useState("");
     const [adress, setAdress] = useState("");
-    const[pet, setPet]=useState({})
-    const {id} = useParams();
-    
-    useEffect(()=>{
+    const [pet, setPet] = useState()
+    const { id } = useParams();
+
+    useEffect(() => {
         const getPet = async () => {
             try {
                 const response = await petService.getPetId(id);
                 const data = response.data;
-               setPet(data)
-                        
-                
+                console.log(data)
+                setPet(data)
+
+
             } catch (error) {
-                console.log (error)
-    
+                console.log(error)
+
             }
         }
-      getPet();
-    },[])
+        getPet();
+    }, [])
 
-    useEffect(()=>{
-        console.log ("alterado")
-        console.log (pet)
+    useEffect(() => {
         if (pet) {
             setName(pet.name);
-             setAdress(pet.adress);
-             setAge(pet.age);
+            setAdress(pet.adress);
+            setAge(pet.age);
             setType(pet.type);
             setBreed(pet.breed);
-             setNameOwner(pet.name_owner);
+            setNameOwner(pet.name_owner);
             setTelephone(pet.telephone);
         }
-    },[pet])
-    useEffect(()=>{
-        console.log(name);
-        console.log(adress);
-    },[name, adress])
 
-    
 
+    }, [pet])
+  
     return (
         <div>
             <Head />
@@ -64,23 +59,22 @@ const PetEdit = () => {
 
                     <h3> Informações do Pet</h3>
                     <div className="information-data">
-                        
+
                         <label>
                             Nome:
-                            
-                            <InputText value={name}  />
+                            <InputText value={name} />
                         </label>
                         <label>
                             Idade:
-                            <InputText value={age}  />
+                            <InputText value={age} />
                         </label>
                         <label>
                             Tipo:
-                            <InputText value={type}  />
+                            <InputText value={type} />
                         </label>
                         <label>
                             Raça:
-                            <InputText value={breed}  />
+                            <InputText value={breed} />
                         </label>
                     </div>
                 </div>
@@ -91,11 +85,11 @@ const PetEdit = () => {
                     <div className="information-data">
                         <label>
                             Dono:
-                            <InputText value={nameOwner}  />
+                            <InputText value={nameOwner} />
                         </label>
                         <label>
                             Telefone:
-                            <InputText value={telephone}  />
+                            <InputText value={telephone} />
                         </label>
                         <label>
                             Endereço:
@@ -104,7 +98,7 @@ const PetEdit = () => {
 
                     </div>
                 </div>
-                <Button  label="Cadastrar" />
+                <Button label="Alterar" />
 
 
             </section>

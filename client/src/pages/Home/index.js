@@ -1,14 +1,16 @@
 import React from "react";
 import Head from "../../components/head";
 import dogImg from "../../assets/img/dog.jpg"
+import "./styles.css"
 
 const Home=()=>{
     return (
         <div>
             <Head/>
             <h1> Estamos na Home</h1>
-           
-            <img className="img-class" src={dogImg} alt="" />
+            <div className="img-class" >
+            <img src={dogImg} alt="" />
+           </div>
            
         </div>
     )

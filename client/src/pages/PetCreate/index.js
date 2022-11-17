@@ -14,8 +14,13 @@ const PetCreate = () => {
     const [nameOwner, setNameOwner] = useState("");
     const [telephone, setTelephone] = useState("");
     const [adress, setAdress] = useState("");
-
+   
     const handleOnChange = (e) => {
+        // setValues(prevValue=>({
+        //     ...prevValue,
+        //     [e.target.name]:e.target.value,
+        // }))
+
         switch (e.target.name) {
             case 'namePet':
                 setName(e.target.value)
@@ -37,6 +42,8 @@ const PetCreate = () => {
                 break;
             case 'adressOwner':
                 setAdress(e.target.value)
+                break;
+            default:
                 break;
 
         }
