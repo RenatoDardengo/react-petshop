@@ -1,0 +1,81 @@
+thead {
+
+    background-color: #2d3643;
+    color: #FFF;
+    height: 30px;
+    text-align: left;
+
+}
+
+table {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    border-color: gray;
+    width: 100%;
+    border: 1px solid gray;
+    margin-top: 20px;
+    
+
+
+}
+table td:nth-child(5) {
+    text-align: right;
+    padding-right: 10px;
+}
+table th:nth-child(5) {
+    text-align: right;
+    padding-right: 10px;
+}
+tr:nth-child(even) {
+    background: rgb(239, 236, 236)
+}
+
+tr {
+    border-bottom: 1px solid darkgray;
+
+
+}
+h2{
+    text-align: center;
+}
+
+td {
+    height: 30px;
+}
+
+td:first-child {
+    width: 10%;
+
+}
+
+.content{
+    margin-right: 10px;
+}
+
+.comands-input{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.cmd-search{
+    display: flex;
+}
+.btn {
+    background-color: #2d3643;
+    text-decoration: none;
+    color: azure;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 130px;
+    height: 30px;
+    margin-left: 5px;
+
+
+}
+button{
+    color: transparent;
+    border: none;
+    background-color: transparent;
+    
+}

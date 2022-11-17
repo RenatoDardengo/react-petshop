@@ -1,0 +1,17 @@
+.btn {
+    background-color: #2d3643;
+    text-decoration: none;
+    color: azure;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 130px;
+    height: 30px;
+    margin-left: 5px;
+
+}
+
+.flat{
+    color: transparent;
+    border: none;
+    background-color: transparent;
+}

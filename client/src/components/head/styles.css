@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    text-decoration: none;
+    
+}
+.content{
+    padding-left: 10px;
+    padding-top: 15px;
+}
+.class-head{
+    background-color: black;
+    height: 60px;
+}
+
+.class-option{
+    color: aliceblue;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.nav{
+    display: flex;
+    padding-top: 20px;
+    padding-right: 20px;
+    justify-content: right;
+}
+
+.color-red{
+    color: red !important;
+}

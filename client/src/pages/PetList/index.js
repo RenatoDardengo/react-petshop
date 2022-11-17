@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+import Head from "../../components/head";
+import "./styles.css";
+import { Link} from "react-router-dom";
+import petService from "../../services/petSevices";
+import Button from "../../components/Button";
+import InputText from "../../components/InputText";
+import editImg from "../../assets/img/edit.png";
+import deleteImg from "../../assets/img/delete.png";
+import Modal from "../../components/Modal";
+
+
+const PetList = () => {
+    const [isVisible, setIsVisible]=useState(false)
+    const[idDelete, setIdDelete]=useState(0)
+ 
+    const [pets, setPets] = useState([])
+    const handleDelete = async (id) => {
+        console.log(id)
+
+        try {
+            const response = await petService.deletePet(id)
+            const message = response.message
+            alert (message)
+            getAllPets()
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const getAllPets = async () => {
+        try {
+            const response = await petService.getPet();
+            const data = response.data;
+            setPets(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getAllPets()
+    }, [])
+
+    
+   
+    return (
+        <div>
+            <Head />
+            {isVisible ? <Modal onClose={() => setIsVisible(false)} id={idDelete} functionDelete={()=>handleDelete(idDelete)}/>:null}
+           
+            <section className="content">
+
+
+                <h2> Cadastro de Pets</h2>
+                <div className="comands-input">
+                <div className="cmd-search">
+                    <InputText />
+                    <Button label="Pesquisar" />
+                </div>
+                    <div>
+                       
+                        <Link to="/pets/create"><Button label="Cadastrar" /></Link>
+
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>Dono</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pets.length ? (
+                            pets.map((pet, idx) =>
+                                <tr key={idx}>
+                                    <td> {pet.id}</td>
+                                    <td>{pet.name}</td>
+                                    <td>{pet.age}</td>
+                                    <td>{pet.name_owner}</td>
+                                    <td>
+                                        <Link to={`/pets/edit/${pet.id}`}><img src={editImg} alt=""/></Link>
+                                        <Button color="flat" onClick={()=>{setIsVisible(true); setIdDelete(pet.id)}} label={<img src={deleteImg} alt="" />}></Button>
+                                       
+                                    </td>
+                                </tr>
+                            )) : (
+                            <tr>
+                                <td> Lista vazia</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    )
+
+}
+
+export default PetList;

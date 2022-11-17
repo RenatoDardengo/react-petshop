@@ -11,8 +11,10 @@ index:async (req, res)=>{
 },
 show:async(req, res)=>{
     const {id}=req.params;
+    const chave = parseInt(id)
+ 
     try {
-        const pet = await Pet.findByPk(id)
+        const pet = await Pet.findByPk(chave)
         res.status(200).json({data:pet})
     } catch (error) {
         res.status(400).json({ message: "Erro ao buscar pet" })
@@ -37,7 +39,19 @@ store:async(req,res)=>{
     }
 },
 update:()=>{},
-delete:()=>{}
+destroy: async(req, res)=>{
+    const {id}=req.params
+    try {
+        const pet = await Pet.destroy({
+            where:{id}
+        })
+        res.status(201).json({ message: "Pet deletado com sucesso" })
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: "Erro ao deletar pet" })
+    }
+}
 }
 
 module.exports= petController;

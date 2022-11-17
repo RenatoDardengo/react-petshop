@@ -6,7 +6,7 @@ router.post("/", petController.store);
 router.get("/:id", petController.show);
 router.put("/:id", petController.update);
 router.patch("/:id", petController.update);
-router.delete("/:id", petController.delete)
+router.delete("/:id", petController.destroy)
 
 
 module.exports= router;
