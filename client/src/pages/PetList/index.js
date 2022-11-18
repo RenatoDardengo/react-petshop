@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "../../components/head";
 import "./styles.css";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import petService from "../../services/petSevices";
 import Button from "../../components/Button";
 import InputText from "../../components/InputText";
@@ -11,22 +11,20 @@ import Modal from "../../components/Modal";
 
 
 const PetList = () => {
-    const [isVisible, setIsVisible]=useState(false)
-    const[idDelete, setIdDelete]=useState(0)
- 
+    const [isVisible, setIsVisible] = useState(false)
+    const [idDelete, setIdDelete] = useState(0)
+    const [name, setName] = useState("")
     const [pets, setPets] = useState([])
-    const handleDelete = async (id) => {
-        console.log(id)
 
+    const handleDelete = async (id) => {
         try {
             const response = await petService.deletePet(id)
             const message = response.message
-            alert (message)
+            alert(message)
             getAllPets()
         } catch (error) {
             console.log(error)
         }
-
     }
 
     const getAllPets = async () => {
@@ -42,26 +40,21 @@ const PetList = () => {
         getAllPets()
     }, [])
 
-    
-   
+
     return (
         <div>
             <Head />
-            {isVisible ? <Modal onClose={() => setIsVisible(false)} id={idDelete} functionDelete={()=>handleDelete(idDelete)}/>:null}
-           
+            {isVisible ? <Modal onClose={() => setIsVisible(false)} name={name} functionDelete={() => handleDelete(idDelete)} /> : null}
+
             <section className="content">
-
-
                 <h2> Cadastro de Pets</h2>
                 <div className="comands-input">
-                <div className="cmd-search">
-                    <InputText />
-                    <Button label="Pesquisar" />
-                </div>
+                    <div className="cmd-search">
+                        <InputText />
+                        <Button label="Pesquisar" />
+                    </div>
                     <div>
-                       
                         <Link to="/pets/create"><Button label="Cadastrar" /></Link>
-
                     </div>
                 </div>
                 <table>
@@ -83,9 +76,8 @@ const PetList = () => {
                                     <td>{pet.age}</td>
                                     <td>{pet.name_owner}</td>
                                     <td>
-                                        <Link to={`/pets/edit/${pet.id}`}><img src={editImg} alt=""/></Link>
-                                        <Button color="flat" onClick={()=>{setIsVisible(true); setIdDelete(pet.id)}} label={<img src={deleteImg} alt="" />}></Button>
-                                       
+                                        <Link to={`/pets/edit/${pet.id}`}><img src={editImg} alt="" /></Link>
+                                        <Button color="flat" onClick={() => { setIsVisible(true); setIdDelete(pet.id); setName(pet.name) }} label={<img src={deleteImg} alt="" />}></Button>
                                     </td>
                                 </tr>
                             )) : (

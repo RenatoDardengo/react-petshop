@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Head from "../../components/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./styles.css";
 import Button from "../../components/Button";
 import InputText from "../../components/InputText";
 import petService from "../../services/petSevices";
 
 const PetEdit = () => {
-
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [type, setType] = useState("");
@@ -15,8 +14,9 @@ const PetEdit = () => {
     const [nameOwner, setNameOwner] = useState("");
     const [telephone, setTelephone] = useState("");
     const [adress, setAdress] = useState("");
-    const [pet, setPet] = useState()
     const { id } = useParams();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getPet = async () => {
@@ -24,31 +24,78 @@ const PetEdit = () => {
                 const response = await petService.getPetId(id);
                 const data = response.data;
                 console.log(data)
-                setPet(data)
-
-
+                if (data) {
+                    setName(data.name)
+                    setAdress(data.adress)
+                    setAge(data.age)
+                    setType(data.type)
+                    setBreed(data.breed)
+                    setNameOwner(data.name_owner)
+                    setTelephone(data.telephone)
+                }
             } catch (error) {
                 console.log(error)
-
             }
         }
         getPet();
     }, [])
 
-    useEffect(() => {
-        if (pet) {
-            setName(pet.name);
-            setAdress(pet.adress);
-            setAge(pet.age);
-            setType(pet.type);
-            setBreed(pet.breed);
-            setNameOwner(pet.name_owner);
-            setTelephone(pet.telephone);
+
+    const handleOnChange = (e) => {
+        switch (e.target.name) {
+            case 'namePet':
+                setName(e.target.value)
+                break;
+            case 'agePet':
+                setAge(e.target.value)
+                break;
+            case 'typePet':
+                setType(e.target.value)
+                break;
+            case 'breedPet':
+                setBreed(e.target.value)
+                break;
+            case 'nameOwner':
+                setNameOwner(e.target.value)
+                break;
+            case 'telephoneOwner':
+                setTelephone(e.target.value)
+                break;
+            case 'adressOwner':
+                setAdress(e.target.value)
+                break;
+            default:
+                break;
         }
+    }
+
+    const handleEditPet = async () => {
+        if (!name || !age || !type || !breed || !adress || !nameOwner || !telephone) {
+            alert("Todos os campos são de preenchimento obrigatório!")
+            return
+        }
+        try {
+            const response = await petService.editPet({
+                id: id,
+                name: name,
+                age: age,
+                type: type,
+                breed: breed,
+                name_owner: nameOwner,
+                telephone: telephone,
+                adress: adress
+            })
+            const message = response.message;
+            alert(message);
+            navigate("/pets");
+
+        } catch (error) {
+            alert("Não foi possível atualizar o cadastro.")
+            console.log(error)
+        }
+    }
 
 
-    }, [pet])
-  
     return (
         <div>
             <Head />
@@ -62,19 +109,19 @@ const PetEdit = () => {
 
                         <label>
                             Nome:
-                            <InputText value={name} />
+                            <InputText name="namePet" value={name} onChange={handleOnChange} />
                         </label>
                         <label>
                             Idade:
-                            <InputText value={age} />
+                            <InputText name="agePet" value={age} onChange={handleOnChange} />
                         </label>
                         <label>
                             Tipo:
-                            <InputText value={type} />
+                            <InputText name="typePet" value={type} onChange={handleOnChange} />
                         </label>
                         <label>
                             Raça:
-                            <InputText value={breed} />
+                            <InputText name="breedPet" value={breed} onChange={handleOnChange} />
                         </label>
                     </div>
                 </div>
@@ -85,22 +132,20 @@ const PetEdit = () => {
                     <div className="information-data">
                         <label>
                             Dono:
-                            <InputText value={nameOwner} />
+                            <InputText name="nameOwner" value={nameOwner} onChange={handleOnChange} />
                         </label>
                         <label>
                             Telefone:
-                            <InputText value={telephone} />
+                            <InputText name="telephoneOwner" value={telephone} onChange={handleOnChange} />
                         </label>
                         <label>
                             Endereço:
-                            <InputText value={adress} />
+                            <InputText name="adressOwner" value={adress} onChange={handleOnChange} />
                         </label>
 
                     </div>
                 </div>
-                <Button label="Alterar" />
-
-
+                <Button label="Alterar" onClick={handleEditPet} />
             </section>
         </div>
     )

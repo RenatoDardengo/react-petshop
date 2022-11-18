@@ -11,10 +11,9 @@ index:async (req, res)=>{
 },
 show:async(req, res)=>{
     const {id}=req.params;
-    const chave = parseInt(id)
- 
+    
     try {
-        const pet = await Pet.findByPk(chave)
+        const pet = await Pet.findByPk(id)
         res.status(200).json({data:pet})
     } catch (error) {
         res.status(400).json({ message: "Erro ao buscar pet" })
@@ -38,7 +37,30 @@ store:async(req,res)=>{
         res.status(400).json({ message: "Erro ao cadastrar pet" })
     }
 },
-update:()=>{},
+update:async(req, res)=>{
+    const { name, age, type, breed, name_owner, telephone, adress } = req.body
+    const {id} = req.params
+ 
+    try {
+        await Pet.update({
+            name,
+            age,
+            type,
+            breed,
+            name_owner,
+            telephone,
+            adress,
+            updated_at: new Date()
+        },
+        {
+            where: { id },
+        })
+        res.status(200).json({ message: "Pet atualizado com sucesso" })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: "Erro ao atualizar o pet" })
+    }
+},
 destroy: async(req, res)=>{
     const {id}=req.params
     try {

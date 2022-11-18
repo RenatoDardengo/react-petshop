@@ -52,6 +52,10 @@
 :disabled * {
     pointer-events: none
 }
+.div-button{
+    margin-top: 80px;
+    text-align: center;
+}
 
 .black:hover {
     color: #fff!important;

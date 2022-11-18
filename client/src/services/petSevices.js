@@ -27,6 +27,21 @@ const petService={
         })
         return response.data
     },
+    editPet: async (data) => {
+        const { name, age, type, breed, name_owner, telephone, adress, id} = data
+        const response = await api.put(`/api/v1/pets/${id} `,
+            {
+                name,
+                age,
+                type,
+                breed,
+                name_owner,
+                telephone,
+                adress
+
+            })
+        return response.data
+    },
     deletePet:async (id)=>{
         const response = await api.delete(`/api/v1/pets/${id} `);
         console.log (response)

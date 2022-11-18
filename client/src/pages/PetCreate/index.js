@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Head from "../../components/head";
-
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import Button from "../../components/Button";
 import InputText from "../../components/InputText";
@@ -14,7 +14,7 @@ const PetCreate = () => {
     const [nameOwner, setNameOwner] = useState("");
     const [telephone, setTelephone] = useState("");
     const [adress, setAdress] = useState("");
-   
+    const navigate = useNavigate();
     const handleOnChange = (e) => {
         // setValues(prevValue=>({
         //     ...prevValue,
@@ -45,21 +45,17 @@ const PetCreate = () => {
                 break;
             default:
                 break;
-
         }
-
-
     }
 
 
     const handleCreatePet = async () => {
-
-        if (!name || !age || !nameOwner || !telephone) {
-            alert("Preencha todos os campos");
+        if (!name || !age || !type || !breed || !adress || !nameOwner || !telephone) {
+            alert("Todos os campos são de preenchimento obrigatório!")
             return
         }
         try {
-            await petService.createPet({
+           const response= await petService.createPet({
                 name: name,
                 age: age,
                 type: type,
@@ -68,14 +64,14 @@ const PetCreate = () => {
                 telephone: telephone,
                 adress: adress
             })
-            alert("Cadastrado com sucesso!")
+            const message = response.message;
+            alert(message);
+            navigate("/pets");
 
         } catch (error) {
             alert("Não foi possível realizar o cadastro.")
             console.log(error)
         }
-
-
     }
 
     return (
