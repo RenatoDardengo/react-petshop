@@ -5,8 +5,10 @@ import "./styles.css";
 import Button from "../../components/Button";
 import InputText from "../../components/InputText";
 import petService from "../../services/petSevices";
+import CellphoneInput from "../../components/MaskedInput/CellphoneInput";
 
 const PetCreate = () => {
+
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [type, setType] = useState("");
@@ -55,7 +57,7 @@ const PetCreate = () => {
             return
         }
         try {
-           const response= await petService.createPet({
+            const response = await petService.createPet({
                 name: name,
                 age: age,
                 type: type,
@@ -72,6 +74,21 @@ const PetCreate = () => {
             alert("Não foi possível realizar o cadastro.")
             console.log(error)
         }
+    }
+    const hadleonKey = () => {
+        console.log(telephone)
+
+        if (telephone.length === 2) {
+            var newValue = "(" + telephone + ")";
+            setTelephone(newValue)
+
+
+        } else if (telephone.length === 9) {
+            newValue = telephone + "-";
+            setTelephone(newValue)
+
+        }
+
     }
 
     return (
@@ -113,7 +130,7 @@ const PetCreate = () => {
                         </label>
                         <label>
                             Telefone:
-                            <InputText name="telephoneOwner" value={telephone} onChange={handleOnChange} placeholder="contato" />
+                            <CellphoneInput name="telephoneOwner" placeholder="(99)99999-9999" onKeyUp={hadleonKey} value={telephone} onChange={(e) => setTelephone(e.target.value)} />
                         </label>
                         <label>
                             Endereço:
