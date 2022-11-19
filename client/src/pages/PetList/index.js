@@ -8,6 +8,7 @@ import InputText from "../../components/InputText";
 import editImg from "../../assets/img/edit.png";
 import deleteImg from "../../assets/img/delete.png";
 import Modal from "../../components/Modal";
+import addImg from "../../assets/img/add.png";
 
 
 const PetList = () => {
@@ -54,7 +55,7 @@ const PetList = () => {
                         <Button label="Pesquisar" />
                     </div>
                     <div>
-                        <Link to="/pets/create"><Button label="Cadastrar" /></Link>
+                        <Link to="/pets/create"><img src={addImg} alt="" /></Link>
                     </div>
                 </div>
                 <table>
@@ -63,6 +64,7 @@ const PetList = () => {
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Idade</th>
+                            <th>Tipo</th>
                             <th>Dono</th>
                             <th>Ações</th>
                         </tr>
@@ -74,6 +76,7 @@ const PetList = () => {
                                     <td> {pet.id}</td>
                                     <td>{pet.name}</td>
                                     <td>{pet.age}</td>
+                                    <td>{pet.type}</td>
                                     <td>{pet.name_owner}</td>
                                     <td>
                                         <Link to={`/pets/edit/${pet.id}`}><img src={editImg} alt="" /></Link>

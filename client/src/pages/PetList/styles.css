@@ -19,11 +19,11 @@ table {
 
 
 }
-table td:nth-child(5) {
+table td:nth-child(6) {
     text-align: right;
     padding-right: 10px;
 }
-table th:nth-child(5) {
+table th:nth-child(6) {
     text-align: right;
     padding-right: 10px;
 }
@@ -56,6 +56,7 @@ td:first-child {
 .comands-input{
     display: flex;
     justify-content: space-between;
+    margin-right: 30px;
     
 }
 .cmd-search{

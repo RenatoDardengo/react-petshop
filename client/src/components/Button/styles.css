@@ -15,7 +15,10 @@
     border: none;
     background-color: transparent;
 }
-
+.flat:hover,
+.btn:hover{
+    cursor: pointer;
+}
 .margin-top{
     margin-top: 20px;
 }
