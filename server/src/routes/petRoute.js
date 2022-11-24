@@ -4,7 +4,8 @@ const petController = require("../controllers/PetController")
 const router = express.Router();
 router.get("/", petController.index);
 router.post("/",validation, petController.store);
-router.get("/:id", petController.show);
+router.post("/search",petController.show);
+router.get("/:id", petController.showOne);
 router.put("/:id",validation, petController.update);
 router.patch("/:id", petController.update);
 router.delete("/:id", petController.destroy)

@@ -16,6 +16,7 @@ const PetList = () => {
     const [idDelete, setIdDelete] = useState(0)
     const [name, setName] = useState("")
     const [pets, setPets] = useState([])
+    const [search, setSearch]=useState('');
 
     const handleDelete = async (id) => {
         try {
@@ -37,6 +38,16 @@ const PetList = () => {
             console.log(error)
         }
     }
+    const searchPets=async()=>{
+        
+        try{
+            const response = await petService.getSearchPet(search);
+            const data = response.data;
+            setPets(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     useEffect(() => {
         getAllPets()
     }, [])
@@ -51,8 +62,8 @@ const PetList = () => {
                 <h2> Cadastro de Pets</h2>
                 <div className="comands-input">
                     <div className="cmd-search">
-                        <InputText />
-                        <Button label="Pesquisar" />
+                        <InputText onChange={(e)=> setSearch(e.target.value)} />
+                        <Button label="Pesquisar" onClick={searchPets}/>
                     </div>
                     <div>
                         <Link to="/pets/create"><img src={addImg} alt="" /></Link>

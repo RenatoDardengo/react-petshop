@@ -7,6 +7,13 @@ const petService={
         return response.data;
         
     },
+    getSearchPet:async(search)=>{
+        const response = await api.post("/api/v1/pets/search",{
+            search
+        })
+        return response.data;
+
+    },
     getPetId:async(id)=>{
         const response = await api.get(`/api/v1/pets/${id} `);
         return response.data;
